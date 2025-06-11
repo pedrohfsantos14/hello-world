@@ -27,9 +27,11 @@ public class Program {
         String workerName = scanner.nextLine();
 
         System.out.print("Level: ");
-        WorkerLevel workerLevel = WorkerLevel.valueOf(scanner.nextLine()
-                .toUpperCase()
-                .replace(" ", "_"));
+        WorkerLevel workerLevel = WorkerLevel.valueOf(
+            scanner.nextLine()
+            .toUpperCase()
+            .replace(" ", "_")
+        );
 
         System.out.print("Base salary: ");
         Double baseSalary = scanner.nextDouble();
@@ -64,8 +66,9 @@ public class Program {
 
         System.out.println(worker);
         System.out.println("Income for " + incomeDateString + ": "
-                + worker.income(incomeDate.getYear(), incomeDate.getMonthValue()));
+            + worker.income(incomeDate.getYear(), incomeDate.getMonthValue()));
 
         scanner.close();
+
     }
 }

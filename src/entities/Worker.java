@@ -5,7 +5,6 @@ import entities.enums.WorkerLevel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Worker {
 
@@ -35,16 +34,18 @@ public class Worker {
     }
 
     public Double income(Integer year, Integer month) {
-        LocalDate incomeDate = LocalDate.of(year, month, 30);
-
         List<HourContract> newList = contracts.stream()
-                .filter(contracts -> contracts.getDate().isEqual(incomeDate))
-                .toList();
+            .filter(contract ->
+                contract.getDate().getYear() == year &&
+                contract.getDate().getMonthValue() == month
+            )
+            .toList();
 
         Double incomeSum = baseSalary;
         for (HourContract contract : newList) {
             incomeSum += contract.totalValue();
         }
+
         return incomeSum;
     }
 

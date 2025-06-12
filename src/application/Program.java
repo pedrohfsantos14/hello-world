@@ -6,6 +6,7 @@ import entities.Worker;
 import entities.enums.WorkerLevel;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
@@ -60,9 +61,9 @@ public class Program {
             worker.addContract(hourContract);
         }
 
-        System.out.print("Enter month and year to calculate income (DD/MM/YYYY): ");
+        System.out.print("Enter month and year to calculate income (MM/YYYY): ");
         String incomeDateString = scanner.next();
-        LocalDate incomeDate = LocalDate.parse(incomeDateString, dateFormartter);
+        YearMonth incomeDate = YearMonth.parse(incomeDateString, DateTimeFormatter.ofPattern("MM/yyyy"));
 
         System.out.println(worker);
         System.out.println("Income for " + incomeDateString + ": "

@@ -17,7 +17,8 @@ public class Program {
 
         Locale.setDefault(Locale.US);
         Scanner scanner = new Scanner(System.in);
-        DateTimeFormatter dateFormartter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter localDateFormartter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("MM/yyyy");
 
         System.out.print("Enter department's name: ");
         String departmentName = scanner.nextLine();
@@ -42,14 +43,12 @@ public class Program {
         System.out.print("How many contracts to this worker? ");
         int contractsValue = scanner.nextInt();
 
-        HourContract hourContract;
         for (int i = 0; i < contractsValue; i++) {
             scanner.nextLine();
 
             System.out.println("Enter contract #" + (i + 1) + " data: ");
             System.out.print("Date (DD/MM/YYYY): ");
-            String contractDateString = scanner.next();
-            LocalDate contractDate = LocalDate.parse(contractDateString, dateFormartter);
+            LocalDate contractDate = LocalDate.parse(scanner.next(), localDateFormartter);
 
             System.out.print("Value per hour: ");
             Double valuePerHour = scanner.nextDouble();
@@ -57,16 +56,14 @@ public class Program {
             System.out.print("Duration (hours): ");
             Integer hours = scanner.nextInt();
 
-            hourContract = new HourContract(contractDate, valuePerHour, hours);
-            worker.addContract(hourContract);
+            worker.addContract(new HourContract(contractDate, valuePerHour, hours));
         }
 
         System.out.print("Enter month and year to calculate income (MM/YYYY): ");
-        String incomeDateString = scanner.next();
-        YearMonth incomeDate = YearMonth.parse(incomeDateString, DateTimeFormatter.ofPattern("MM/yyyy"));
+        YearMonth incomeDate = YearMonth.parse(scanner.next(), yearMonthFormatter);
 
         System.out.println(worker);
-        System.out.println("Income for " + incomeDateString + ": "
+        System.out.println("Income for " + yearMonthFormatter.format(incomeDate) + ": "
             + worker.income(incomeDate.getYear(), incomeDate.getMonthValue()));
 
         scanner.close();
